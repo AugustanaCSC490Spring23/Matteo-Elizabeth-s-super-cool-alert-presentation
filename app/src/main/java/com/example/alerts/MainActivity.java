@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.Manifest;
 import android.app.Notification;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -48,13 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] { android.Manifest.permission.POST_NOTIFICATIONS }, 0);
             return;
         }
         notificationManager.notify(1, notification);
@@ -76,15 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] { android.Manifest.permission.POST_NOTIFICATIONS }, 0);
             return;
         }
         notificationManager.notify(2, notification);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        if (grantResults.length == 0) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
